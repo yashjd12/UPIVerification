@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UPI Verification and Payment</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        button {
+            padding: 10px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>UPI Verification and Payment</h1>
+
+    <div>
+        <label for="upiInput">Enter UPI ID:</label>
+        <input type="text" id="upiInput" placeholder="Enter UPI ID">
+        <button onclick="verifyUPI()">Verify UPI</button>
+    </div>
+
+    <div id="verificationResult" style="display: none;">
+        <h3>Verification Result:</h3>
+        <p id="upiAddress"></p>
+        <p id="userName"></p>
+        <button onclick="proceedToPayment()">Proceed to Payment</button>
+    </div>
+
+    <div id="paymentSection" style="display: none;">
+        <h3>Payment Section:</h3>
+        <!-- Add your payment-related elements here -->
+    </div>
+
+    <script>
+        async function verifyUPI() {
+            const upiAddress = document.getElementById('upiInput').value;
+
+            // Use AJAX or fetch to send the UPI address to your server-side script
+            // (Assuming you have an endpoint to handle this on your server)
+            try {
+                const response = await fetch('/verify-upi', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ upiAddress }),
+                });
+
+                const verificationResult = await response.json();
+
+                // Display the verification result
+                document.getElementById('upiAddress').innerText = 'UPI Address: ' + verificationResult.vpa;
+                document.getElementById('userName').innerText = 'Name of the User: ' + verificationResult.name_at_bank;
+
+                // Show the verification result section
+                document.getElementById('verificationResult').style.display = 'block';
+
+            } catch (error) {
+                console.error('Error:', error.message);
+            }
+        }
+
+        function proceedToPayment() {
+            // Show the payment section
+            document.getElementById('paymentSection').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
