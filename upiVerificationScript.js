@@ -2,8 +2,8 @@ const axios = require('axios');
 require('dotenv').config();
 
 // Access the values
-const apiKey = process.env.API_KEY;
-const accountId = process.env.ACCOUNT_ID;
+const apiKey = process.env.API_KEY || '4ac9b6ce-127e-455d-ac5b-6fb7f2adbc7a';
+const accountId = process.env.ACCOUNT_ID || '0a41387ddb36/9d7b7e3d-db3f-42e9-be2d-ace1d8d6e734';
 
 
 // Function to verify UPI address

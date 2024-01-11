@@ -27,6 +27,21 @@ app.post('/verify-upi', async (req, res) => {
     }
 });
 
+// Route to handle user verification and display details
+app.post('/verify-user', async (req, res) => {
+    const upiAddress = req.body.upiAddress;
+
+    try {
+        const verificationResult = await verifyUPIAddress(upiAddress);
+
+        // Send the verification result to the '/verify-user' route
+        res.json(verificationResult);
+    } catch (error) {
+        console.error('Error during UPI verification:', error.message);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
 // Start the server
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
